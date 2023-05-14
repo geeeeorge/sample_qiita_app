@@ -48,3 +48,16 @@ export function getQiitaItems(setResRows: (rows: QiitaItems) => void, query: str
       setResRows(resRows)
     })
 }
+
+export function getQiitaItemByID(id: string): Promise<QiitaItem> {
+  return axios.get(`${QIITA_ITEMS_URL}/${id}`).then((res) => {
+    const item = res.data
+    return createQiitaItem(
+      item.id,
+      item.body,
+      item.title,
+      item.url,
+      item.updated_at.substr(0, 19).replace('T', ' '),
+    )
+  })
+}
