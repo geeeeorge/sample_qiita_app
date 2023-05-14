@@ -24,21 +24,20 @@ const Search = styled('div')(({ theme }) => ({
   },
 }))
 
-const SearchIconWrapper = styled('div')(({ theme }) => ({
+const SearchIconWrapper = styled(IconButton)(({ theme }) => ({
   padding: theme.spacing(0, 2),
   height: '100%',
   position: 'absolute',
-  pointerEvents: 'none',
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
+  zIndex: 1,
 }))
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
   color: 'inherit',
   '& .MuiInputBase-input': {
     padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
     transition: theme.transitions.create('width'),
     width: '100%',
@@ -52,6 +51,16 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }))
 
 export default function SearchAppBar() {
+  const [searchValue, setSearchValue] = React.useState('')
+
+  const handleSearchInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchValue(event.target.value)
+  }
+
+  const handleSearchButtonClick = () => {
+    console.log(searchValue)
+  }
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position='static'>
@@ -74,10 +83,19 @@ export default function SearchAppBar() {
             Sample Qiita App
           </Typography>
           <Search>
-            <SearchIconWrapper>
+            <SearchIconWrapper
+              color='inherit'
+              onClick={handleSearchButtonClick}
+              aria-label='search'
+            >
               <SearchIcon />
             </SearchIconWrapper>
-            <StyledInputBase placeholder='Search…' inputProps={{ 'aria-label': 'search' }} />
+            <StyledInputBase
+              placeholder='Search…'
+              inputProps={{ 'aria-label': 'search' }}
+              value={searchValue}
+              onChange={handleSearchInputChange}
+            />
           </Search>
         </Toolbar>
       </AppBar>
