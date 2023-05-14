@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import Button from '@mui/material/Button'
 import { DataGrid, GridRowsProp, GridColDef, GridToolbar, jaJP } from '@mui/x-data-grid'
 import * as React from 'react'
@@ -9,9 +10,11 @@ const cols: GridColDef[] = [
     headerName: '詳細',
     width: 100,
     renderCell: (params) => (
-      <Button variant='contained' color='primary'>
-        詳細
-      </Button>
+      <Link href={`/detail/${params.row.id}`}>
+        <Button variant='contained' color='primary'>
+          詳細
+        </Button>
+      </Link>
     ),
   },
   { field: 'updated_at', headerName: '更新日時', width: 300 },
@@ -19,7 +22,7 @@ const cols: GridColDef[] = [
 
 export default function QiitaItemsGrid(props: { rows: GridRowsProp }) {
   return (
-    <div style={{ height: 600, width: '100%' }}>
+    <div>
       <DataGrid
         rows={props.rows}
         columns={cols}
