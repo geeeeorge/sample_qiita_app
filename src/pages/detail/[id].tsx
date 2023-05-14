@@ -1,3 +1,4 @@
+import { GetServerSidePropsContext } from 'next'
 import { QiitaItem, getQiitaItemByID } from '../../api/QiitaApi'
 import QiitaItemDetail from '../../pages/QiitaItemDetail'
 
@@ -13,8 +14,8 @@ export default function Detail({ item }: Props) {
   )
 }
 
-export async function getServerSideProps({ params }) {
-  const item = await getQiitaItemByID(params.id)
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+  const item = await getQiitaItemByID(context.params!.id as string)
   return {
     props: {
       item,
