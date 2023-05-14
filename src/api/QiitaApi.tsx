@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { QIITA_ITEMS_URL } from '../components/constants/consntants'
+import { QIITA_ITEMS_URL } from '@/components/constants/consntants'
 
 export type QiitaItem = {
   id: number

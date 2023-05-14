@@ -1,4 +1,4 @@
-import { QiitaItem } from '../api/QiitaApi'
+import { QiitaItem } from '@/api/QiitaApi'
 
 type Props = {
   item: QiitaItem
