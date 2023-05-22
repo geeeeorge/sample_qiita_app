@@ -1,7 +1,7 @@
 import type { NextPage } from 'next'
 import * as React from 'react'
-import QiitaItemList from '../pages/QiitaItemList'
 import { createContext, useState, useContext, ReactNode } from 'react'
+import QiitaItemList from '@/pages/QiitaItemList'
 
 interface ApiKeyContextType {
   apiKey: string
@@ -17,21 +17,16 @@ interface ApiKeyProviderProps {
 export function ApiKeyProvider({ children }: ApiKeyProviderProps) {
   const [apiKey, setApiKey] = useState('')
 
-  return (
-    <ApiKeyContext.Provider value={{ apiKey, setApiKey }}>
-      {children}
-    </ApiKeyContext.Provider>
-  )
+  return <ApiKeyContext.Provider value={{ apiKey, setApiKey }}>{children}</ApiKeyContext.Provider>
 }
 
 export function useApiKey() {
-  const context = useContext(ApiKeyContext);
+  const context = useContext(ApiKeyContext)
   if (!context) {
-    throw new Error('useApiKey must be used within a ApiKeyProvider');
+    throw new Error('useApiKey must be used within a ApiKeyProvider')
   }
-  return context;
+  return context
 }
-
 
 const Home: NextPage = () => {
   return (

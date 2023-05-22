@@ -37,9 +37,11 @@ export function getQiitaItems(
 ): void {
   axios
     .get(QIITA_ITEMS_URL, {
-      headers: token ? {
-        Authorization: `Bearer ${token}`,
-      } : {},
+      headers: token
+        ? {
+            Authorization: `Bearer ${token}`,
+          }
+        : {},
       params: query ? { page: 1, per_page: 20, query: query } : { page: 1, per_page: 20 },
     })
     .then((res) => {
@@ -70,22 +72,24 @@ export function getQiitaItemByID(
 ): void {
   axios
     .get(`${QIITA_ITEMS_URL}/${id}`, {
-      headers: token ? {
-        Authorization: `Bearer ${token}`,
-      } : {},
+      headers: token
+        ? {
+            Authorization: `Bearer ${token}`,
+          }
+        : {},
     })
     .then((res) => {
-    const item = res.data
-    const resRow = createQiitaItem(
-      item.id,
-      item.user.name,
-      item.body,
-      item.title,
-      item.url,
-      item.updated_at.substr(0, 19).replace('T', ' '),
-    )
+      const item = res.data
+      const resRow = createQiitaItem(
+        item.id,
+        item.user.name,
+        item.body,
+        item.title,
+        item.url,
+        item.updated_at.substr(0, 19).replace('T', ' '),
+      )
       setResRow(resRow)
-  })
+    })
     .catch((err) => {
       console.log(id)
       console.log(token)

@@ -1,6 +1,6 @@
-import { ApiKeyProvider } from '@/pages/index'
+import { createTheme, ThemeProvider } from '@mui/material/styles'
 import type { AppProps } from 'next/app'
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { ApiKeyProvider } from '@/pages/index'
 
 const theme = createTheme({
   palette: {
@@ -10,11 +10,9 @@ const theme = createTheme({
   },
 })
 
-
-
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    < ThemeProvider theme={theme}>
+    <ThemeProvider theme={theme}>
       <ApiKeyProvider>
         <Component {...pageProps} />
       </ApiKeyProvider>

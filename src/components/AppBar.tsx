@@ -1,5 +1,14 @@
 import MenuIcon from '@mui/icons-material/Menu'
 import SearchIcon from '@mui/icons-material/Search'
+import {
+  Button,
+  TextField,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+} from '@mui/material'
 import AppBar from '@mui/material/AppBar'
 import Box from '@mui/material/Box'
 import IconButton from '@mui/material/IconButton'
@@ -8,7 +17,6 @@ import Toolbar from '@mui/material/Toolbar'
 import Typography from '@mui/material/Typography'
 import { styled, alpha } from '@mui/material/styles'
 import * as React from 'react'
-import { Button, TextField, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material'
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -52,10 +60,10 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }))
 
 type SearchAppBarProps = {
-  setApiKey: React.Dispatch<React.SetStateAction<string>>;
+  setApiKey: React.Dispatch<React.SetStateAction<string>>
 }
 
-export default function SearchAppBar({ setApiKey }: SearchAppBarProps ) {
+export default function SearchAppBar({ setApiKey }: SearchAppBarProps) {
   const [searchValue, setSearchValue] = React.useState('')
   const [open, setOpen] = React.useState(false)
   const [tempApiKey, setTempApiKey] = React.useState('') // 追加: 一時的なAPIキーの状態
@@ -80,7 +88,8 @@ export default function SearchAppBar({ setApiKey }: SearchAppBarProps ) {
     setOpen(false)
   }
 
-  const handleOk = () => { // 追加: OKボタンがクリックされたときの処理
+  const handleOk = () => {
+    // 追加: OKボタンがクリックされたときの処理
     setApiKey(tempApiKey) // APIキーの状態を更新
     handleClose() // ダイアログを閉じる
   }
@@ -129,9 +138,7 @@ export default function SearchAppBar({ setApiKey }: SearchAppBarProps ) {
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Set API Key</DialogTitle>
         <DialogContent>
-          <DialogContentText>
-            Please enter your Qiita API Key:
-          </DialogContentText>
+          <DialogContentText>Please enter your Qiita API Key:</DialogContentText>
           <TextField
             autoFocus
             margin='dense'
@@ -150,4 +157,3 @@ export default function SearchAppBar({ setApiKey }: SearchAppBarProps ) {
     </Box>
   )
 }
-

@@ -1,9 +1,9 @@
 import { GetServerSidePropsContext } from 'next'
-import { QiitaItem, getQiitaItemByID } from '@/api/QiitaApi'
-import QiitaItemDetail from '../../pages/QiitaItemDetail'
 import React, { useEffect, useState } from 'react'
+import { QiitaItem, getQiitaItemByID } from '@/api/QiitaApi'
 import SearchAppBar from '@/components/AppBar'
 import { useApiKey } from '@/pages'
+import QiitaItemDetail from '@/pages/QiitaItemDetail'
 
 type Props = {
   id: string
