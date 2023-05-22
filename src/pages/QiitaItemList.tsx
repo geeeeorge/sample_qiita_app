@@ -5,18 +5,20 @@ import { useState, useEffect } from 'react'
 import { getQiitaItems, QiitaItems } from '@/api/QiitaApi'
 import SearchAppBar from '@/components/AppBar'
 import QiitaItemsGrid from '@/components/QiitaItemsGrid'
+import { useApiKey } from '@/pages/index'
 
 const QiitaItemList: NextPage = () => {
   const [resRows, setResRows] = useState<QiitaItems>([])
+  const { apiKey, setApiKey } = useApiKey()
 
   useEffect(() => {
-    getQiitaItems(setResRows, '')
-  }, [])
+    getQiitaItems(setResRows, apiKey, '')
+  }, [apiKey])
   const rows: GridRowsProp = resRows
 
   return (
     <>
-      <SearchAppBar />
+      <SearchAppBar setApiKey={setApiKey} />
       <QiitaItemsGrid rows={rows} />
     </>
   )

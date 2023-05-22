@@ -4,7 +4,7 @@ import Link from 'next/link'
 import * as React from 'react'
 
 const cols: GridColDef[] = [
-  { field: 'title', headerName: 'タイトル', width: 800 },
+  { field: 'title', headerName: 'タイトル', flex: 1 },
   {
     field: 'urlButton',
     headerName: '詳細',
@@ -17,12 +17,12 @@ const cols: GridColDef[] = [
       </Link>
     ),
   },
-  { field: 'updated_at', headerName: '更新日時', width: 300 },
+  { field: 'updated_at', headerName: '更新日時', width: 150 },
 ]
 
 export default function QiitaItemsGrid(props: { rows: GridRowsProp }) {
   return (
-    <div>
+    <div style={{ height: 400, width: '100%' }}>
       <DataGrid
         rows={props.rows}
         columns={cols}
@@ -30,6 +30,7 @@ export default function QiitaItemsGrid(props: { rows: GridRowsProp }) {
           toolbar: GridToolbar,
         }}
         localeText={jaJP.components.MuiDataGrid.defaultProps.localeText}
+        autoHeight
       />
     </div>
   )

@@ -1,24 +1,36 @@
 import { GetServerSidePropsContext } from 'next'
-import { QiitaItem, getQiitaItemByID } from '../../api/QiitaApi'
+import { QiitaItem, getQiitaItemByID } from '@/api/QiitaApi'
 import QiitaItemDetail from '../../pages/QiitaItemDetail'
+import React, { useEffect, useState } from 'react'
+import SearchAppBar from '@/components/AppBar'
+import { useApiKey } from '@/pages'
 
 type Props = {
-  item: QiitaItem
+  id: string
 }
 
-export default function Detail({ item }: Props) {
+export default function Detail({ id }: Props) {
+  const [resRow, setResRow] = useState({} as QiitaItem)
+  const { apiKey, setApiKey } = useApiKey()
+
+  useEffect(() => {
+    getQiitaItemByID(setResRow, id, apiKey)
+  }, [id, apiKey])
+
   return (
     <>
-      <QiitaItemDetail item={item} />
+      <SearchAppBar setApiKey={setApiKey} />
+      <QiitaItemDetail item={resRow} />
     </>
   )
 }
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
-  const item = await getQiitaItemByID(context.params!.id as string)
+  const id = context.params!.id as string
+
   return {
     props: {
-      item,
+      id,
     },
   }
 }

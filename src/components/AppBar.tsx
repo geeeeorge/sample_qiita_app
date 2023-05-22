@@ -8,6 +8,7 @@ import Toolbar from '@mui/material/Toolbar'
 import Typography from '@mui/material/Typography'
 import { styled, alpha } from '@mui/material/styles'
 import * as React from 'react'
+import { Button, TextField, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material'
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -50,8 +51,14 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }))
 
-export default function SearchAppBar() {
+type SearchAppBarProps = {
+  setApiKey: React.Dispatch<React.SetStateAction<string>>;
+}
+
+export default function SearchAppBar({ setApiKey }: SearchAppBarProps ) {
   const [searchValue, setSearchValue] = React.useState('')
+  const [open, setOpen] = React.useState(false)
+  const [tempApiKey, setTempApiKey] = React.useState('') // 追加: 一時的なAPIキーの状態
 
   const handleSearchInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchValue(event.target.value)
@@ -59,6 +66,23 @@ export default function SearchAppBar() {
 
   const handleSearchButtonClick = () => {
     console.log(searchValue)
+  }
+
+  const handleApiKeyChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setTempApiKey(event.target.value) // 更新: 一時的なAPIキーの状態を更新
+  }
+
+  const handleOpen = () => {
+    setOpen(true)
+  }
+
+  const handleClose = () => {
+    setOpen(false)
+  }
+
+  const handleOk = () => { // 追加: OKボタンがクリックされたときの処理
+    setApiKey(tempApiKey) // APIキーの状態を更新
+    handleClose() // ダイアログを閉じる
   }
 
   return (
@@ -97,8 +121,33 @@ export default function SearchAppBar() {
               onChange={handleSearchInputChange}
             />
           </Search>
+          <Button color='inherit' onClick={handleOpen}>
+            Set API Key
+          </Button>
         </Toolbar>
       </AppBar>
+      <Dialog open={open} onClose={handleClose}>
+        <DialogTitle>Set API Key</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Please enter your Qiita API Key:
+          </DialogContentText>
+          <TextField
+            autoFocus
+            margin='dense'
+            id='apiKey'
+            label='API Key'
+            type='text'
+            fullWidth
+            onChange={handleApiKeyChange}
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose}>Cancel</Button>
+          <Button onClick={handleOk}>OK</Button>
+        </DialogActions>
+      </Dialog>
     </Box>
   )
 }
+
