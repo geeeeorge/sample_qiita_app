@@ -2,15 +2,28 @@ import { QiitaItem } from '@/api/QiitaApi'
 import ReactMarkdown from 'react-markdown'
 import { Container, Typography, Box, Chip, Link } from '@mui/material'
 import remarkGfm from 'remark-gfm'
+import { useRouter } from 'next/router'
+import { Button } from '@mui/material'
 
 type Props = {
   item: QiitaItem
 }
 
 export default function QiitaItemDetail({ item }: Props) {
+  const router = useRouter()
+
+  const handleBack = () => {
+    router.back()
+  }
+
   return (
     <>
       <Container>
+        <Box my={4}>
+          <Button  variant='contained' color='primary' onClick={handleBack}>
+            Back
+          </Button>
+        </Box>
         <Box my={4}>
           <Typography variant="h4" component="h1" gutterBottom>
             {item.title}
