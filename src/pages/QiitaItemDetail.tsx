@@ -15,6 +15,12 @@ export default function QiitaItemDetail({ item }: Props) {
     router.back()
   }
 
+  // Check if item is defined and has a title property
+  if (!item || !item.title) {
+    // Return a loading message or similar placeholder
+    return <div>Loading...</div>;
+  }
+
   return (
     <>
       <Container>
