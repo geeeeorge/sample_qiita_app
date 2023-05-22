@@ -91,8 +91,6 @@ export function getQiitaItemByID(
       setResRow(resRow)
     })
     .catch((err) => {
-      console.log(id)
-      console.log(token)
       console.log(err)
     })
 }
